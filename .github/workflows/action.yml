@@ -1,0 +1,32 @@
+name: Selenium automation test
+
+on:
+#  schedule:
+#    - cron: '0 9 * * *' # Runs at 9:00 AM UTC
+  workflow_dispatch:  # Enable manual triggering
+
+#env:
+#  api_key: ${{ secrets.API_KEY }}
+#  sftp_username: ${{ secrets.SFTP_USERNAME }}
+#  sftp_password: ${{ secrets.SFTP_PASSWORD }}
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Check out repository
+        uses: actions/checkout@v4.1.2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5.1.0
+        with:
+          python-version: '3.8'
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Python Script
+        run: python test.py
